@@ -3,17 +3,21 @@ const isIntersecting = (entry) => {
 	return entry.isIntersecting  // true ( dentro de la pantalla)
 }
 
-const accion = (entry) => {
-	const nodo = entry.target;
+const loadImage = (entry) => {
+	const container = entry.target; // div que tiene adentro a la imagen
 	
-	console.log("holis");
+	const imagen = container.firstChild;
+	const url = imagen.dataset.src;
+
+	//load image
+	imagen.src = url;
 
 	// unobserve
-	observer.unobserve(nodo)
+	observer.unobserve(container)
 }
 
 const observer = new IntersectionObserver((entries) => {
-	entries.filter(isIntersecting).forEach(accion)
+	entries.filter(isIntersecting).forEach(loadImage)
 }) 
 
 

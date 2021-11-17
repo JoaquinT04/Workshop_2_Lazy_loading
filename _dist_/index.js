@@ -68,14 +68,12 @@ const createImageNode = () =>{
 	const imagen = document.createElement('img');
 	imagen.className = "mx-auto";
 	imagen.width = '320';
-	imagen.src = `https://randomfox.ca/images/${random()}.jpg`;
+	imagen.dataset.src = `https://randomfox.ca/images/${random()}.jpg`;
 
 	container.appendChild(imagen);
 
 	return container;
 }
-
-const nuevaImagen = createImageNode();
 
 const mountNode = document.getElementById("images")
 
