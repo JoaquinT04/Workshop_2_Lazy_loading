@@ -55,6 +55,7 @@ todosLosItems.push(container);
 appNode.append(...todosLosItems); */
 
 
+import { registerImage } from './lazy'
 
 const maximun = 122;
 const minimum = 2;
@@ -82,5 +83,6 @@ const addButton = document.querySelector("#add_button");
 const addImage = () => {
 	const newImage = createImageNode();
 	mountNode.append(newImage);
+	registerImage(newImage);
 };
 addButton.addEventListener("click", addImage);
