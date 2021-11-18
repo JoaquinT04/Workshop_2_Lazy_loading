@@ -57,6 +57,20 @@ appNode.append(...todosLosItems); */
 
 import { registerImage } from './lazy.js'
 
+
+export const reportImgs = {
+	imgLoaded: 0,
+	totalImg: 0
+}
+
+
+export const showReportImg = () => {
+	console.log('----------------------------------------')
+	console.log(`%c⚪Total Imgs: ${reportImgs.totalImg}`, 'color: white; font-size: 0.8rem');
+	console.log(`%c🟣Total Cargadas: ${reportImgs.imgLoaded}`, 'color: hotpink; font-size: 0.8rem');
+	console.log('----------------------------------------')
+}
+
 const maximun = 122;
 const minimum = 2;
 const random = () => Math.floor(Math.random() * (maximun - minimum)) + minimum;
@@ -66,8 +80,9 @@ const createImageNode = () =>{
 	container.className = "p-4";
 
 	const imagen = document.createElement('img');
-	imagen.className = "mx-auto";
+	imagen.className = "mx-auto bg-current";
 	imagen.width = '320';
+	imagen.height = "320";
 	imagen.dataset.src = `https://randomfox.ca/images/${random()}.jpg`;
 
 	container.appendChild(imagen);
@@ -75,12 +90,32 @@ const createImageNode = () =>{
 	return container;
 }
 
-const mountNode = document.getElementById("images")
+let mountNode = document.getElementById("images")
 
 const addButton = document.querySelector("#add_button");
 const addImage = () => {
+	reportImgs.totalImg++;
+	showReportImg();
+
 	const newImage = createImageNode();
 	mountNode.append(newImage);
 	registerImage(newImage);
 };
 addButton.addEventListener("click", addImage);
+
+const clearButton = document.querySelector("#clear_button");
+
+function removeAllChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild)
+  }
+}
+
+const deletAll = () => {
+	console.clear()
+	reportImgs.imgLoaded = 0;
+	reportImgs.totalImg = 0;
+	removeAllChildren(mountNode)
+}
+
+clearButton.addEventListener("click", deletAll)
